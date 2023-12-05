@@ -1,5 +1,3 @@
-package src.test.java;
-
 public class App {
 	private int number;
 	public App(){
