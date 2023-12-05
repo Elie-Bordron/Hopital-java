@@ -11,20 +11,19 @@ import hopital.model.Compte;
 
 public class MenuTest {
 //	public static String typeC;
-	public static Compte utilisateur = ConnectionCompte();
 
 	private static boolean salle1=false;
 	private static boolean salle2=false;
 	private static String phraseIntro = "Que souhaitez-vous faire ?\nRépondez par le numéro correspondant à l'action désirée.";
 	
 	public static void main(String[] args) {
-		int a = 1;
-		while(a == 1) {
-			a = 0;
+		while(true) {
 			int Choix = 0;
 			boolean sousmenu = true;
+			Compte utilisateur = ConnectionCompte();
 			System.out.println("-----------------------");
 			if (utilisateur.getTypeCompte().equals("secretaire")) {
+//				Secretaire secretaire = new Secretaire();
 				while(sousmenu) {
 					System.out.println(phraseIntro
 							+ "\n(0) : se déconnecter\n(1) : ajouter patient à la file d'attente\n(2) : "
@@ -42,6 +41,7 @@ public class MenuTest {
 					}
 				}
 			}else if (utilisateur.getTypeCompte().equals("medecin")) {
+//				Medecin medecin = new Medecin();
 				boolean salleActuelle = false; //salle 1=true, salle 2=false
 				if (salle1==false && salle2==false) {
 					while ((Choix!=1) && (Choix!=2)) {
@@ -69,7 +69,7 @@ public class MenuTest {
 					case 3 : continuer();sousmenu=true;break;
 					case 4 : continuer();sousmenu=true;break;
 					default : sousmenu=true;break;//OK
-					}	
+					}
 				}
 			}
 		}
