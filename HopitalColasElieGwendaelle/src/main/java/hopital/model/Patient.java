@@ -7,6 +7,7 @@ public class Patient {
 	private Integer numero;
 	private String nom;
 	private String prenom;
+	private String salle;
 	
 	public Patient() {
 	}
@@ -20,6 +21,14 @@ public class Patient {
 		this.numero = numero;
 		this.nom = nom;
 		this.prenom = prenom;
+	}
+
+	public String getSalle() {
+		return salle;
+	}
+
+	public void setSalle(String salle) {
+		this.salle = salle;
 	}
 
 	public Integer getNumero() {

@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
-import banque.classe.simple;
+
+import hopital.model.Compte;
 
 public class MenuTest {
 
