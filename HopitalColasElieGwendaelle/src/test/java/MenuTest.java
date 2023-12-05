@@ -61,9 +61,9 @@ public class MenuTest {
 					salle1=true; salleActuelle = true;
 				}
 				while(sousmenu) {
-					System.out.println(phraseIntro+"\n(0) : se déconnecter\n(1) : rendre salle\n(2) : rendre salle disponible\n(3) : "
-							+ "voir état file d'attente\n(4)"
-							+ " : voir fiche du prochain patient\n(5) : sauvegarder la liste des visites");
+					System.out.println(phraseIntro+"\n(0) : se déconnecter\n(1) : rendre salle disponible\n(2) : "
+							+ "voir état file d'attente\n(3)"
+							+ " : voir fiche du prochain patient\n(4) : sauvegarder la liste des visites");
 					Choix = saisieInt("Choix : ");
 					switch(Choix) {
 					case 0 : sousmenu=false;break;//OK
@@ -71,7 +71,6 @@ public class MenuTest {
 					case 2 : continuer();sousmenu=true;break;
 					case 3 : continuer();sousmenu=true;break;
 					case 4 : continuer();sousmenu=true;break;
-					case 5 : continuer();sousmenu=true;break;
 					default : sousmenu=true;break;//OK
 					}	
 				}
