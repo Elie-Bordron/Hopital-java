@@ -20,6 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import hopital.model.Patient;
+
 
 
 
@@ -30,37 +32,47 @@ public class FileAttente {
 		this.patients = new ArrayList<>();
 	}
 	
+	public List<Patient> getPatients() {
+		return patients;
+	}
+
+	public void setPatients(List<Patient> patients) {
+		this.patients = patients;
+	}
+
 	public void ajouterPatient(Patient patient){
-		if (patientInDb(patient.getId())) {
+		if (patientInDb(patient.getNumero())) {
 			patients.add(patient);
 		} else {
 			System.out.println("Enregistrement du patient dans la base de données");
-			PatientToDb(patient);
+			patientToDb(patient);
 			patients.add(patient);
 		}
 	}
 	
-	public boolean patientInDb() {
+	public boolean patientInDb(int numero) {
 		// retourne true si l'id du patient est dans la base de donnees, sinon retourne false
+		return true;
 	}
-	public boolean patientToDb() {
+	public void patientToDb(Patient patient) {
 		// enregistre les infos du patient dans la base de donnees
+		
 	}
 	
 	public void afficher() {
 		System.out.println("Voici la file d'attente: ");
 		for (Patient patient : patients) {
 			System.out.print("Le patient ");
-			patient.afficher();
-			System.out.println(" a rendez-vous en salle "+patient.salle);
+			patient.toString();
+			System.out.println(" a rendez-vous en salle "+patient.getSalle());
 		}
 	}
 	
-	public Patient prochainPatient(int salle) {
+	public Patient prochainPatient(String salle) {
 		System.out.println("Le prochain patient en salle "+salle+" est ");
 		for (Patient patient : patients) {
-			if(patient.salle==salle) {
-				patient.afficher();
+			if(patient.getSalle()==salle) {
+				patient.toString();
 				return patient;
 			}
 		}
@@ -71,11 +83,11 @@ public class FileAttente {
 	
 	///////////// methodes pour l'ecriture de la file d'attente dans un fichier
 	
-	private void saveFileAttente() {
-		writeFileAttenteFromFile(patients);
+	public void saveFileAttente() {
+		writeFileAttenteFromFile();
 	}
 	
-	private String loadFileAttente() {
+	public String loadFileAttente() {
 		List<Patient>loadedPatients = readFileAttenteFromFile();
 		if(patients.equals(loadedPatients)) {
 			return "La file d'attente n'a pas changé depuis votre déconnexion.";
@@ -92,25 +104,26 @@ public class FileAttente {
 		else {
 			patients = loadedPatients;
 		}
+		return "";
 	}
 	
-	private static void writeFileAttenteFromFile() {
+	public void writeFileAttenteFromFile() {
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 		try {
-			fos = new FileOutputStream("fileAttente.txt");
 			oos = new ObjectOutputStream(fos);
+			fos = new FileOutputStream("fileAttente.txt");
 			oos.writeObject(patients);
-			oos.close();
 			fos.close();
+			oos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	private static List<Patient> readFileAttenteFromFile() {
+	private List<Patient> readFileAttenteFromFile() {
 		ObjectInputStream ois = null;
-		List<Patient> patients;
+		List<Patient> patients = new ArrayList<>();
 		try {
 			ois = new ObjectInputStream(new FileInputStream("fileAttente.txt"));
 			patients = (List<Patient>) ois.readObject();
@@ -124,64 +137,4 @@ public class FileAttente {
 		}
 		return patients;
 	}
-	
-	
-	
-	
-
-	////////////// attributs et methodes a ajouter dans la classe Visite
-	public static int nombre_de_numeros_de_visite = 0; //  est utilisé dans le constructeur pour générer des numéros de visite.
-	public Visite(int idPatient, int idMedecin, int coutVisite, int salle, localDate dateVisite) {
-		this.numero = nombre_de_numeros_de_visite;
-		//[...]
-		nombre_de_numeros_de_visite ++;
-	}
-	
-	////////////// attributs et methodes a ajouter dans la classe Secretaire
-	private FileAttente fileAttente; // les deux medecins et la secretaire ont la meme file d'attente
-	
-	public void ajouterPatient(Patient patient, int salle) {
-		patient.salle = salle;
-		fileAttente.ajouterPatient(patient);
-	}
-	
-	public void afficherFileAttente() {
-		fileAttente.afficher();
-	}
-	
-	public void commencerPause() {
-		System.out.println("Début de la pause: "+LocalDate.now().toString());
-		saveFileAttente();
-	}
-	public void finirPause() {
-		System.out.println("Fin de la pause: "+LocalDate.now().toString());
-		String msg = loadFileAttente();
-		System.out.println(msg);
-	}
-	////////////// attributs et methodes a ajouter dans la classe Medecin
-	private List<Visite> visites;
-	private int salle;
-	private FileAttente fileAttente; // les deux medecins et la secretaire ont la meme file d'attente
-	
-	public Visite visiteDePatient(Patient patient) {
-		return new Visite(patient.getId, getId(), 20, salle, localDate.now());
-	}
-	
-	public void nouvelleVisite() {
-		if(visites.size()>=10) {
-			saveVisites();
-			System.out.println("Les visites précédentes ont été sauvegardées");
-		}
-		visites.add(visiteDePatient(prochainPatient()));
-	}
-	
-	public void saveVisites() {
-		// utilise DAOvisite pour sauvegarder la liste de visites, quelle que soit sa longueur
-		visites.clear();
-	}
-	
-	public void prochainPatient() {
-		return fileAttente.prochainPatient(salle);
-	}
-
 }
