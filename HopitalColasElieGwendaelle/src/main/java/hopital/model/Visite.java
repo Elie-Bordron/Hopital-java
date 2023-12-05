@@ -26,6 +26,13 @@ public class Visite {
 		this.dateVisite = dateVisite;
 	}
 
+	public Visite(int numero, int tarif, String salle, LocalDate dateVisite) {
+		this.numero = numero;
+		this.tarif = tarif;
+		this.salle = salle;
+		this.dateVisite = dateVisite;
+	}
+
 	public Visite(Patient patient, Medecin medecin, int tarif, String salle, LocalDate dateVisite) {
 		this.numero = nombre_de_numeros_de_visite;
 		nombre_de_numeros_de_visite ++;
@@ -35,6 +42,7 @@ public class Visite {
 		this.salle = salle;
 		this.dateVisite = dateVisite;
 	}
+	
 	
 	public Integer getNumero() {
 		return numero;

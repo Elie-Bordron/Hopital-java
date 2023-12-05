@@ -11,6 +11,9 @@ public class Medecin extends Compte {
 	private List<Visite> visites;
 	private String salle;
 	
+	public Medecin(int numero, String login, String password) {
+		super(numero, login, password,"medecin");
+	}
 	public Medecin(int numero, String login, String password, FileAttente fileAttente) {
 		super(numero, login, password,"medecin", fileAttente);
 	}
@@ -18,6 +21,8 @@ public class Medecin extends Compte {
 	public Medecin(String login, String password, FileAttente fileAttente) {
 		super(login, password,"medecin", fileAttente);
 	}
+	
+	
 
 	
 	public Visite visiteDePatient(Patient patient) {
