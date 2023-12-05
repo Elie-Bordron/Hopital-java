@@ -2,7 +2,6 @@ package hopital.model;
 
 public class Medecin extends Compte {
 
-	private String type;
 	
 	public Medecin(int numero, String login, String password) {
 		super(numero, login, password,"medecin");
@@ -14,9 +13,6 @@ public class Medecin extends Compte {
 
 	}
 
-	public String getType() {
-		return type;
-	}
 	
 	
 }

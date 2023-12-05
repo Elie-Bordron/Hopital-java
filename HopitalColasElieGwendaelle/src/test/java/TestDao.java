@@ -27,8 +27,10 @@ public class TestDao {
 //		daoCompte.delete(new Compte(3, null, null, null));
 		
 		DaoVisite daoVisite = JdbcContext.getDaoVisite();
-		daoVisite.insert(new Visite(new Patient(1, null, null), new Medecin(1,null, null),20, "1", LocalDate.now()));
+//		daoVisite.insert(new Visite(new Patient(1, null, null), new Medecin(1,null, null),20, "1", LocalDate.now()));
 		System.out.println(daoVisite.findAll());
+		System.out.println(daoCompte.connection("login1","mdp"));
+		
 	}
 	
 	

@@ -80,6 +80,7 @@ public class Compte {
 	public String toString() {
 		return numero + " " + login + " " + password + " " + typeCompte;
 	}
+
 	
 	public void Connection() {
 		//  1/ Saisie Login et MdP
