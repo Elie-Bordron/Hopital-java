@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import banque.classe.simple;
 
 public class MenuTest {
 
@@ -35,7 +34,7 @@ public class MenuTest {
 				default : sousmenu=true;break;//OK
 				}
 				}
-			}else if (utilisateur instanceof medecin) {
+			} else if (utilisateur instanceof medecin) {
 				boolean salleActuelle; //1=true, 2=false
 				if (salle1==false && salle2==false) {
 					while (Choix!=1||Choix!=2) {
