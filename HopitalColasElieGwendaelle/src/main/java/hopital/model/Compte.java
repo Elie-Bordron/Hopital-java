@@ -1,6 +1,7 @@
 package hopital.model;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Compte {
 
@@ -79,5 +80,21 @@ public class Compte {
 	public String toString() {
 		return numero + " " + login + " " + password + " " + typeCompte;
 	}
+	
+	public void Connection() {
+		//  1/ Saisie Login et MdP
+		Scanner sc=new Scanner(System.in);
+		System.out.print("Rentrer le login : ");
+		String Login =  sc.nextLine();
+		System.out.print("Rentrer le mot de passe : ");
+		String MdP =  sc.nextLine();sc.close();
+		//  2/ Test SQL si Login & MdP correspondent à une même ligne
+		this.numero=testMDP(Login,MdP);
+		// 	3/ Retourne l'objet typeCompte/(médecin ou secrétaire)
+		//return this.getTypeCompte();
+		
+	}
+	
+
 	
 }
