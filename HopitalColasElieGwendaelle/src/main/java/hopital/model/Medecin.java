@@ -17,12 +17,9 @@ public class Medecin extends Compte {
 	public Medecin(int numero, String login, String password) {
 		super(numero, login, password,"medecin");
 	}
-	public Medecin(int numero, String login, String password, FileAttente fileAttente) {
-		super(numero, login, password,"medecin", fileAttente);
-	}
 	
-	public Medecin(String login, String password, FileAttente fileAttente) {
-		super(login, password,"medecin", fileAttente);
+	public Medecin(String login, String password) {
+		super(login, password,"medecin");
 	}
 
 	
@@ -30,12 +27,12 @@ public class Medecin extends Compte {
 		return new Visite(patient, this, 20, salle, LocalDate.now());
 	}
 	
-	public void nouvelleVisite() {
+	public void nouvelleVisite(Patient patient) {
 		if(visites.size()>=10) {
 			saveVisites();
 			System.out.println("Les visites précédentes ont été sauvegardées");
 		}
-		visites.add(visiteDePatient(prochainPatient()));
+		visites.add(visiteDePatient(patient));
 	}
 	
 	public void saveVisites() {
@@ -43,9 +40,5 @@ public class Medecin extends Compte {
 		visites.clear();
 	}
 	
-	public Patient prochainPatient() {
-		return getFileAttente().prochainPatient(salle);
-	}
-
 }
 

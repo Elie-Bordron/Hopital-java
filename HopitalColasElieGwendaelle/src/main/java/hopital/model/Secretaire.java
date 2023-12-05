@@ -6,30 +6,32 @@ import src.main.java.FileAttente;
 
 public class Secretaire extends Compte{
 
-	public Secretaire(int numero, String login, String password, FileAttente fileAttente) {
-		super(numero, login, password,"secretaire", fileAttente);
+	public Secretaire () {}
+	
+	public Secretaire(int numero, String login, String password) {
+		super(numero, login, password,"secretaire");
 	}
 	
-	public Secretaire(String login, String password, FileAttente fileAttente) {
-		super(login, password,"secretaire", fileAttente);
+	public Secretaire(String login, String password) {
+		super(login, password,"secretaire");
 	}
 
-	public void ajouterPatient(Patient patient, String salle) {
+	public static void ajouterPatient(Patient patient, String salle, FileAttente fileAttente) {
 		patient.setSalle(salle);
-		getFileAttente().ajouterPatient(patient);
+		fileAttente.ajouterPatient(patient);
 	}
 	
-	public void afficherFileAttente() {
-		getFileAttente().afficher();
+	public static void afficherFileAttente(FileAttente fileAttente) {
+		fileAttente.afficher();
 	}
 	
-	public void commencerPause() {
+	public static void commencerPause(FileAttente fileAttente) {
 		System.out.println("Début de la pause: "+LocalDate.now().toString());
-		getFileAttente().saveFileAttente();
+		fileAttente.saveFileAttente();
 	}
-	public void finirPause() {
+	public static void finirPause(FileAttente fileAttente) {
 		System.out.println("Fin de la pause: "+LocalDate.now().toString());
-		String msg = getFileAttente().loadFileAttente();
+		String msg = fileAttente.loadFileAttente();
 		System.out.println(msg);
 	}
 	

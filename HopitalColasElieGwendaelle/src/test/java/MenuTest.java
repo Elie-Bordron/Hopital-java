@@ -1,7 +1,6 @@
 import java.util.Scanner;
 
 import hopital.dao.DaoCompteJdbcImpl;
-import hopital.model.Compte;
 import hopital.model.Medecin;
 import hopital.model.Secretaire;
 import hopital.util.JdbcContext;
