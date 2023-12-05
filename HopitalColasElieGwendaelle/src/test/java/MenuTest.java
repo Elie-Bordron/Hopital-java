@@ -18,17 +18,13 @@ public class MenuTest {
 	private static String phraseIntro = "Que souhaitez-vous faire ?\nRépondez par le numéro correspondant à l'action désirée.";
 	
 	public static void main(String[] args) {
-		// 1 -
-			
-			System.out.println(utilisateur.getTypeCompte().equals("secretaire"));
 		int a = 1;
 		while(a == 1) {
 			a = 0;
 			int Choix = 0;
 			boolean sousmenu = true;
 			System.out.println("-----------------------");
-//			System.out.println(utilisateur.getTypeCompte());
-			if (utilisateur.getTypeCompte()=="secretaire") {
+			if (utilisateur.getTypeCompte().equals("secretaire")) {
 				while(sousmenu) {
 					System.out.println(phraseIntro
 							+ "\n(0) : se déconnecter\n(1) : ajouter patient à la file d'attente\n(2) : "
@@ -40,7 +36,8 @@ public class MenuTest {
 					case 1 : continuer();sousmenu=true;break;
 					case 2 : continuer();sousmenu=true;break;
 					case 3 : continuer();sousmenu=true;break;
-					case 4 : continuer();sousmenu=true;break;
+					case 4 : //Secretaire.commencerPause();Secretaire.finirPause();
+					continuer();sousmenu=true;break;
 					default : sousmenu=true;break;//OK
 					}
 				}
