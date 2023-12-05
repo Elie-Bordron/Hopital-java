@@ -46,7 +46,6 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 			ps.setString(3, obj.getTypeCompte());
 			ps.setInt(4, obj.getNumero());
 			ps.executeUpdate();
-
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -111,5 +110,28 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 		JdbcContext.closeConnection();
 		return comptes;
 	}
+	
+	public int connection(String login, String password) {
+		int idCompte = 0;
+		Connection connection = JdbcContext.getConnection();
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from compte where login_compte = ? and password_compte = ?");
+			ps.setString(1, login);
+			ps.setString(2, password);
+			ResultSet rs = ps.executeQuery();	
+			while (rs.next()) {
+				idCompte = rs.getInt("id_compte");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		JdbcContext.closeConnection();
+		if (idCompte == 0) System.out.println("Identifiant ou mot de passe incorrect");
+		
+		return idCompte;
 
+	}
+
+	
 }
