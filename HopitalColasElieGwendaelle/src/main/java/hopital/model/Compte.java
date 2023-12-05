@@ -3,20 +3,17 @@ package hopital.model;
 import java.util.Objects;
 import java.util.Scanner;
 
+import src.main.java.FileAttente;
+
 public class Compte {
 
 	private Integer numero;
 	private String login;
 	private String password;
 	private String typeCompte;
+	private FileAttente fileAttente; // les deux medecins et la secretaire ont la meme file d'attente
 	
 	public Compte() {
-	}
-
-	public Compte(String login, String password, String typeCompte) {
-		this.login = login;
-		this.password = password;
-		this.typeCompte = typeCompte;
 	}
 
 	public Compte(int numero, String login, String password, String typeCompte) {
@@ -24,7 +21,30 @@ public class Compte {
 		this.login = login;
 		this.password = password;
 		this.typeCompte = typeCompte;
-		
+		this.fileAttente = new FileAttente();
+	}
+	
+	public Compte(String login, String password, String typeCompte, FileAttente fileAttente) {
+		this.login = login;
+		this.password = password;
+		this.typeCompte = typeCompte;
+		this.fileAttente = fileAttente;
+	}
+
+	public Compte(int numero, String login, String password, String typeCompte, FileAttente fileAttente) {
+		this.numero = numero;
+		this.login = login;
+		this.password = password;
+		this.typeCompte = typeCompte;
+		this.fileAttente = fileAttente;
+	}
+
+	public FileAttente getFileAttente() {
+		return fileAttente;
+	}
+
+	public void setFileAttente(FileAttente fileAttente) {
+		this.fileAttente = fileAttente;
 	}
 
 	public Integer getNumero() {

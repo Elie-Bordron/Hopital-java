@@ -30,7 +30,7 @@ CREATE TABLE `compte` (
   `password_compte` varchar(255) DEFAULT NULL,
   `type_compte` enum('medecin','secretaire') NOT NULL,
   PRIMARY KEY (`id_compte`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `compte` (
 
 LOCK TABLES `compte` WRITE;
 /*!40000 ALTER TABLE `compte` DISABLE KEYS */;
+INSERT INTO `compte` VALUES (1,'steph','azerty','medecin'),(2,'robin','qwerty','medecin'),(3,'axel','abcd','secretaire');
 /*!40000 ALTER TABLE `compte` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,7 +55,7 @@ CREATE TABLE `patient` (
   `nom_patient` varchar(200) DEFAULT NULL,
   `prenom_patient` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +64,7 @@ CREATE TABLE `patient` (
 
 LOCK TABLES `patient` WRITE;
 /*!40000 ALTER TABLE `patient` DISABLE KEYS */;
+INSERT INTO `patient` VALUES (1,'patien1','test'),(3,'patien1','test');
 /*!40000 ALTER TABLE `patient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +87,7 @@ CREATE TABLE `visite` (
   KEY `visite_compte_id_compte_fk_idx` (`id_medecin`),
   CONSTRAINT `visite_compte_id_compte_fk` FOREIGN KEY (`id_medecin`) REFERENCES `compte` (`id_compte`),
   CONSTRAINT `visite_patient_id_patient_fk` FOREIGN KEY (`id_patient`) REFERENCES `patient` (`id_patient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +96,7 @@ CREATE TABLE `visite` (
 
 LOCK TABLES `visite` WRITE;
 /*!40000 ALTER TABLE `visite` DISABLE KEYS */;
+INSERT INTO `visite` VALUES (3,1,1,20,'1','2023-12-05 00:00:00');
 /*!40000 ALTER TABLE `visite` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -106,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-05 11:18:56
+-- Dump completed on 2023-12-05 16:41:31

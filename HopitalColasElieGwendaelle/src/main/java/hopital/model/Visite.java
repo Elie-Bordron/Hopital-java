@@ -3,6 +3,7 @@ package hopital.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
 public class Visite {
 
 	private Integer numero;
@@ -11,29 +12,23 @@ public class Visite {
 	private int tarif;
 	private String salle;
 	private LocalDate dateVisite;
+	public static int nombre_de_numeros_de_visite = 0; //  est utilisé dans le constructeur pour générer des numéros de visite.
 	
 	public Visite() {
 	}
 	
 	
-	public Visite(Integer numero, int tarif, String salle, LocalDate dateVisite) {
-		this.numero = numero;
+	public Visite(int tarif, String salle, LocalDate dateVisite) {
+		this.numero = nombre_de_numeros_de_visite;
+		nombre_de_numeros_de_visite ++;
 		this.tarif = tarif;
 		this.salle = salle;
 		this.dateVisite = dateVisite;
 	}
-	
+
 	public Visite(Patient patient, Medecin medecin, int tarif, String salle, LocalDate dateVisite) {
-		this.patient = patient;
-		this.medecin = medecin;
-		this.tarif = tarif;
-		this.salle = salle;
-		this.dateVisite = dateVisite;
-	}
-	
-	public Visite(Integer numero, Patient patient, Medecin medecin, int tarif, String salle,
-			LocalDate dateVisite) {
-		this.numero = numero;
+		this.numero = nombre_de_numeros_de_visite;
+		nombre_de_numeros_de_visite ++;
 		this.patient = patient;
 		this.medecin = medecin;
 		this.tarif = tarif;
