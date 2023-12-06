@@ -126,7 +126,7 @@ public class MenuTest {
 	
 	public static void Historique() {
 		int key = saisieInt("Entrer le numéro du patient : ");
-//		Patient.getHistoric(key);
+		Patient.getHistoric(key);
 	}
 	
 }
