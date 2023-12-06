@@ -143,7 +143,7 @@ public class FileAttente {
 			}
 			// vide le fichier
 			oos = new ObjectOutputStream(fos);
-			fos = new FileOutputStream("fileAttente.txt");
+			fos = new FileOutputStream("fileAttente.txt", false);
 			oos.writeBytes("");
 			fos.close();
 			oos.close();
