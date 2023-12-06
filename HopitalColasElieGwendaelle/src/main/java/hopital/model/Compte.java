@@ -3,6 +3,7 @@ package hopital.model;
 import java.util.Objects;
 import java.util.Scanner;
 
+import src.main.java.FileAttente;
 import hopital.dao.DaoCompteJdbcImpl;
 import hopital.util.JdbcContext;
 

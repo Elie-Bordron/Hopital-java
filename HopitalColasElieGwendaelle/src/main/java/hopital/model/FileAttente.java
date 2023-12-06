@@ -21,11 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+
 import hopital.dao.DaoPatient;
 import hopital.util.JdbcContext;
-
-
-
 
 public class FileAttente {
 	List<Patient> patients;
@@ -51,6 +49,10 @@ public class FileAttente {
 			patients.add(patient);
 		}
 	}
+
+	public void retirerPatient(Patient patient) {
+		
+	}
 	
 	public static boolean patientInDb(int numero) {
 		DaoPatient daoPatient = JdbcContext.getDaoPatient();
@@ -67,23 +69,24 @@ public class FileAttente {
 	public void afficher() {
 		System.out.println("Voici la file d'attente: ");
 		for (Patient patient : patients) {
-			System.out.print("Le patient ");
 			patient.toString();
-			System.out.println(" a rendez-vous en salle "+patient.getSalle());
 		}
 	}
 	
-	public Patient prochainPatient(String salle) {
-		System.out.println("Le prochain patient en salle "+salle+" est ");
-		for (Patient patient : patients) {
-			if(patient.getSalle()==salle) {
-				patient.toString();
-				return patient;
-			}
-		}
-		return null;
+	public void afficherProchainPatient() {
+		patients.get(0).toString();
 	}
 	
+	public Patient getProchainPatient() {
+		return patients.get(0);
+	}
+	
+	public Patient sortirProchainPatient() {
+		Patient patient = getProchainPatient();
+		patients.remove(0);
+		return patient;
+		
+	}
 
 	
 	///////////// methodes pour l'ecriture de la file d'attente dans un fichier
