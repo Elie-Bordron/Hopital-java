@@ -1,12 +1,13 @@
 package hopital.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 import hopital.dao.DaoVisite;
 import hopital.util.JdbcContext;
 
-public class Patient {
+public class Patient implements Serializable {
 
 	private Integer numero;
 	private String nom;
@@ -75,7 +76,7 @@ public class Patient {
 	
 	@Override
 	public String toString() {
-		return numero + " " + nom + " " + prenom;
+		return "Patient numero "+numero + ":  Nom: " + nom + " Prenom: " + prenom;
 	}
 	
 	public static void getHistoric(int numero) {

@@ -28,7 +28,6 @@ public class MenuTest {
 			int Choix = 0;
 			boolean sousmenu = true;
 			Compte utilisateur = ConnectionCompte();
-			System.out.println(utilisateur.toString());
 			System.out.println("-----------------------");
 			if (utilisateur.getTypeCompte().equals("secretaire")) {
 				while(sousmenu) {
@@ -76,7 +75,7 @@ public class MenuTest {
 						continuer();sousmenu=true;break;
 					case 3 : fileAttente.afficher();continuer();sousmenu=true;break;
 					case 4 : continuer();sousmenu=true;break;
-					case 5 : continuer();sousmenu=true;break; // Medecin.saveVisites(visites);
+					case 5 : Medecin.saveVisites(visites);continuer();sousmenu=true;break; // Medecin.saveVisites(visites);
 					default : sousmenu=true;break;//OK
 					}
 				}
@@ -116,16 +115,12 @@ public class MenuTest {
 				logmdp = 1;
 			}
 		}
-		//System.out.println(JdbcContext.getDaoCompte().findByKey(cle).getTypeCompte());
 		return JdbcContext.getDaoCompte().findByKey(cle);
 	}
 	
 	public static void secrAjPatient() {
 	int key = saisieInt("Entrer le numéro du patient : ");
-//	String nom = saisieString("Entrer le nom du patient : "); //Pour éviter qu'un nouveau venu ne donne le meme id qu'un patient déjà existant.
-//	String prenom = saisieString("Entrer le prénom du patient : ");
 	fileAttente.ajouterPatient(new Patient(key));
-	System.out.println("Patient ajouté à la file.");
 	}
 	
 	public static void Historique() {

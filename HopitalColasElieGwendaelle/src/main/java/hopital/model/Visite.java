@@ -111,7 +111,7 @@ public class Visite {
 	
 	@Override
 	public String toString() {
-		return numero + "\n" + patient + "\n" + medecin + "\n" + tarif + "\n" + salle + "\n" + dateVisite ;
+		return "Numero de visite: "+numero + "\n" + patient + "\n" + "Numero de medecin: "+medecin + "\n Tarif consultation: " + tarif + "\n salle:" + salle + "\n date: " + dateVisite ;
 	}
 	
 }

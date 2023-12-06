@@ -47,10 +47,12 @@ public class FileAttente {
 			System.out.println("Le patient est connu dans la base de données");
 			patient = JdbcContext.getDaoPatient().findByKey(patient.getNumero());
 			patients.add(patient);
+			System.out.println("Patient ajouté à la file d'attente.");
 		} else {
 			System.out.println("Le patient doit etre enregistré dans la base de données");
 			patientToDb(patient);
 			patients.add(patient);
+			System.out.println("Patient ajouté à la file d'attente.");
 		}
 	}
 		
@@ -62,11 +64,11 @@ public class FileAttente {
 	}
 	
 	public void patientToDb(Patient patient) {
-		System.out.println("nom patient: "+patient.getNom());
+//		System.out.println("nom patient: "+patient.getNom());
 		if(patient.getNom()==null) {
 			patient.setNom(saisieString("Entrez votre Nom: "));
 		}
-		System.out.println("prenom patient: "+patient.getPrenom());
+//		System.out.println("prenom patient: "+patient.getPrenom());
 		if(patient.getPrenom()==null) {
 			patient.setPrenom(saisieString("Entrez votre Prenom: "));
 		}
@@ -157,8 +159,8 @@ public class FileAttente {
 				System.out.println(patient);
 			}
 			// vide le fichier
-			oos = new ObjectOutputStream(fos);
 			fos = new FileOutputStream("fileAttente.txt", false);
+			oos = new ObjectOutputStream(fos);
 			oos.writeBytes("");
 			fos.close();
 			oos.close();

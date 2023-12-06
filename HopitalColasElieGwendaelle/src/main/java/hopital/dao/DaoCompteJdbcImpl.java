@@ -84,15 +84,11 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 			PreparedStatement ps = connection.prepareStatement("select * from compte where id_compte = ?");
 			ps.setInt(1, key);
 			ResultSet rs = ps.executeQuery();
-			System.out.println("med or secr?");
 			while (rs.next()) {
-				System.out.println("type_compte: "+rs.getString("type_compte"));
 				if (rs.getString("type_compte").equals("medecin")) {
-					System.out.println("med");
 					compte = new Medecin(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte"));
 				}
 				if (rs.getString("type_compte").equals("secretaire")) {
-					System.out.println("secr");
 					compte = new Secretaire(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte"));
 				}
 			}
@@ -101,7 +97,6 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 			e.printStackTrace();
 		}
 		JdbcContext.closeConnection();
-		System.out.println("0Medecin ou Secretaire: "+compte.toString());
 		return compte;
 	}
 

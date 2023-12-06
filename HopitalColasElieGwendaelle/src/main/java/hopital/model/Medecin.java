@@ -31,9 +31,16 @@ public class Medecin extends Compte {
 		visites.add(new Visite(fileAttente.sortirProchainPatient(), getMedecinByKey(numMedecin), 20, salle, LocalDate.now()));
 	}
 	
+	public static void voirVisites(List<Visite> visites) {
+		System.out.println("Voici les visites non sauvegardées");
+		for(Visite v : visites) {
+			System.out.println(v.toString());
+		}
+	}
+	
 	public static void saveVisites(List<Visite> visites) {
 		// utilise DAOvisite pour sauvegarder la liste de visites, quelle que soit sa longueur
-		
+		voirVisites(visites);
 		visites.clear();
 	}
 	
