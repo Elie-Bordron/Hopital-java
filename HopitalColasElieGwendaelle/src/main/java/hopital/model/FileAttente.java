@@ -52,6 +52,7 @@ public class FileAttente {
 		}
 	}
 
+	
 	public void retirerPatient(Patient patient) {
 		
 	}
@@ -122,8 +123,8 @@ public class FileAttente {
 			System.out.println("La file d'attente est vide");
 		} else {
 			try {
-				oos = new ObjectOutputStream(fos);
 				fos = new FileOutputStream("fileAttente.txt");
+				oos = new ObjectOutputStream(fos);
 				oos.writeObject(patients);
 				fos.close();
 				oos.close();
