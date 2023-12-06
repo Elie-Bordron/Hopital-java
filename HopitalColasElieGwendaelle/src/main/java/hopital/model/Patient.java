@@ -15,6 +15,10 @@ public class Patient {
 	public Patient() {
 	}
 
+	public Patient(Integer numero) {
+		this.numero = numero;
+	}
+	
 	public Patient(String nom, String prenom) {
 		this.nom = nom;
 		this.prenom = prenom;
@@ -25,6 +29,7 @@ public class Patient {
 		this.nom = nom;
 		this.prenom = prenom;
 	}
+	
 
 
 	public Integer getNumero() {
