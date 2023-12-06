@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 import hopital.dao.DaoCompteJdbcImpl;
 import hopital.model.Medecin;
+import hopital.model.Patient;
 import hopital.model.Secretaire;
 import hopital.util.JdbcContext;
-
-
+import src.main.java.FileAttente;
 import hopital.model.Compte;
 
 public class MenuTest {
@@ -14,6 +14,7 @@ public class MenuTest {
 	private static boolean salle1=false;
 	private static boolean salle2=false;
 	private static String phraseIntro = "Que souhaitez-vous faire ?\nRépondez par le numéro correspondant à l'action désirée.";
+	public static FileAttente fileAttente;
 	
 	public static void main(String[] args) {
 		while(true) {
@@ -27,14 +28,14 @@ public class MenuTest {
 					System.out.println(phraseIntro
 							+ "\n(0) : se déconnecter\n(1) : ajouter patient à la file d'attente\n(2) : "
 							+ "voir état file d'attente\n(3)"
-							+ " : Historique d'un patient\n(4) : prendre une pause");
+							+ " : historique d'un patient\n(4) : prendre une pause");
 					Choix = saisieInt("Choix : ");
 					switch(Choix) {
 					case 0 : sousmenu=false;break;//OK
-					case 1 : continuer();sousmenu=true;break;
-					case 2 : continuer();sousmenu=true;break;
+					case 1 : secrAjPatient();continuer();sousmenu=true;break;
+					case 2 : fileAttente.afficher();continuer();sousmenu=true;break;
 					case 3 : continuer();sousmenu=true;break;
-					case 4 : //Secretaire.commencerPause();Secretaire.finirPause();
+					case 4 : Secretaire.commencerPause(fileAttente);Secretaire.finirPause(fileAttente);
 					continuer();sousmenu=true;break;
 					default : sousmenu=true;break;//OK
 					}
@@ -42,19 +43,20 @@ public class MenuTest {
 			}else if (utilisateur.getTypeCompte().equals("medecin")) {
 //				Medecin medecin = new Medecin();
 				boolean salleActuelle = false; //salle 1=true, salle 2=false
+				String nomSalle = new String();
 				if (salle1==false && salle2==false) {
 					while ((Choix!=1) && (Choix!=2)) {
 						Choix = saisieInt("Veuillez choisir entre la salle (1) et (2) : ");
 						if (Choix == 1) {
-							salle1=true; salleActuelle = true;
+							salle1=true; salleActuelle = true; nomSalle = "Salle 1";
 						}else if (Choix == 2) {
-							salle2=true; salleActuelle = false;
+							salle2=true; salleActuelle = false; nomSalle = "Salle 2";
 						}
 					}
 				} else if (salle1==true && salle2==false) {
-					salle2=true; salleActuelle = false;
+					salle2=true; salleActuelle = false; nomSalle = "Salle 2";
 				} else if (salle1==false && salle2==true) {
-					salle1=true; salleActuelle = true;
+					salle1=true; salleActuelle = true; nomSalle = "Salle 1";
 				}
 				while(sousmenu) {
 					System.out.println(phraseIntro+"\n(0) : se déconnecter\n(1) : rendre salle disponible\n(2) : "
@@ -64,8 +66,8 @@ public class MenuTest {
 					switch(Choix) {
 					case 0 : sousmenu=false;break;//OK
 					case 1 : if(salleActuelle) {salle1=false;}else{salle2=false;}sousmenu=false;break; //Déconnexion après salle rendue
-					case 2 : continuer();sousmenu=true;break;
-					case 3 : continuer();sousmenu=true;break;
+					case 2 : fileAttente.prochainPatient(nomSalle);continuer();sousmenu=true;break;
+					case 3 : fileAttente.afficher();continuer();sousmenu=true;break;
 					case 4 : continuer();sousmenu=true;break;
 					default : sousmenu=true;break;//OK
 					}
@@ -110,6 +112,14 @@ public class MenuTest {
 		}
 		//System.out.println(JdbcContext.getDaoCompte().findByKey(cle).getTypeCompte());
 		return JdbcContext.getDaoCompte().findByKey(cle);
+	}
+	
+	public static void secrAjPatient() {
+	int key = saisieInt("Entrer le numéro du patient : ");
+	String nom = saisieString("Entrer le nom du patient : ");
+	String prenom = saisieString("Entrer le prénom du patient : ");
+	fileAttente.ajouterPatient(new Patient(key, nom, prenom));
+	System.out.println("Patient ajouté.");
 	}
 	
 }

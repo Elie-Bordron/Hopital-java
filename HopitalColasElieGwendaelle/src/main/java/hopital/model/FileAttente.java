@@ -53,13 +53,16 @@ public class FileAttente {
 		
 	}
 	
-	public boolean patientInDb(int numero) {
-		// retourne true si l'id du patient est dans la base de donnees, sinon retourne false
+	public static boolean patientInDb(int numero) {
+		DaoPatient daoPatient = JdbcContext.getDaoPatient();
+		Patient patient = daoPatient.findByKey(numero);
+		if (patient == null) return false;
 		return true;
 	}
+	
 	public void patientToDb(Patient patient) {
-		// enregistre les infos du patient dans la base de donnees
-		
+		DaoPatient daoPatient = JdbcContext.getDaoPatient();
+		daoPatient.insert(patient);
 	}
 	
 	public void afficher() {
