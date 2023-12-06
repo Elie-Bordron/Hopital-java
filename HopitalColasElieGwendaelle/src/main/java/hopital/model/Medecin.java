@@ -33,11 +33,11 @@ public class Medecin extends Compte {
 	
 	public static void saveVisites(List<Visite> visites) {
 		// utilise DAOvisite pour sauvegarder la liste de visites, quelle que soit sa longueur
+		
 		visites.clear();
 	}
 	
 	public static Medecin getMedecinByKey(int numero) {
-		// utilise DaoCompte et
 		DaoCompte daoCompte = JdbcContext.getDaoCompte();
 		Medecin medecin = (Medecin) daoCompte.findByKey(numero);
 		return medecin;

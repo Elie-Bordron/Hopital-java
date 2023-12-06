@@ -2,11 +2,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
 import hopital.dao.DaoCompteJdbcImpl;
 import hopital.model.Medecin;
 import hopital.model.Patient;
 import hopital.model.Secretaire;
+<<<<<<< HEAD
+import hopital.model.FileAttente;
+=======
 import hopital.model.Visite;
+>>>>>>> 10ad6a7e9c54328ac43a40ae3d9f1866729f168c
 import hopital.util.JdbcContext;
 import hopital.model.Compte;
 import hopital.model.FileAttente;

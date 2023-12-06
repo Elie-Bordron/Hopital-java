@@ -44,16 +44,10 @@ public class FileAttente {
 		if (patientInDb(patient.getNumero())) {
 			patients.add(patient);
 		} else {
-			System.out.println("Enregistrement du patient dans la base de données");
-			patientToDb(patient);
-			patients.add(patient);
+			System.out.println("Le patient doit etre enregistré dans la base de données");
 		}
 	}
-
-	public void retirerPatient(Patient patient) {
 		
-	}
-	
 	public static boolean patientInDb(int numero) {
 		DaoPatient daoPatient = JdbcContext.getDaoPatient();
 		Patient patient = daoPatient.findByKey(numero);
@@ -62,6 +56,8 @@ public class FileAttente {
 	}
 	
 	public void patientToDb(Patient patient) {
+		patient.setNom(saisieString("Entrez votre Nom: "));
+		patient.setPrenom(saisieString("Entrez votre Prenom: "));
 		DaoPatient daoPatient = JdbcContext.getDaoPatient();
 		daoPatient.insert(patient);
 	}
@@ -120,8 +116,8 @@ public class FileAttente {
 			System.out.println("La file d'attente est vide");
 		} else {
 			try {
-				oos = new ObjectOutputStream(fos);
 				fos = new FileOutputStream("fileAttente.txt");
+				oos = new ObjectOutputStream(fos);
 				oos.writeObject(patients);
 				fos.close();
 				oos.close();
@@ -130,6 +126,9 @@ public class FileAttente {
 			}
 		}
 	}
+	
+	
+	
 	
 	private List<Patient> readFileAttenteFromFile() {
 		FileOutputStream fos = null;
@@ -155,4 +154,14 @@ public class FileAttente {
 		}
 		return patients;
 	}
+
+	//////////////////////////////////////// Pour faire une Saisie dans ajouterPatient()
+	public static String saisieString(String message){
+		Scanner sc=new Scanner(System.in);
+		System.out.println(message);
+		return sc.nextLine();
+	}
+	
+	
+
 }
