@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,10 +7,9 @@ import hopital.dao.DaoCompteJdbcImpl;
 import hopital.model.Medecin;
 import hopital.model.Patient;
 import hopital.model.Secretaire;
-import hopital.model.FileAttente;
 import hopital.model.Visite;
 import hopital.util.JdbcContext;
-import hopital.model.Compte; 
+import hopital.model.Compte;
 import hopital.model.FileAttente;
 
 public class MenuTest {
@@ -40,8 +38,8 @@ public class MenuTest {
 					case 0 : sousmenu=false;break; //[OK]
 					case 1 : secrAjPatient();continuer();sousmenu=true;break; //[OK] SAUF que il faut verifier le n° et NOM et PRENOM ET il faut ajouter le patient avec son numéro sécu et pas implémenter un numéro incrémenté
 					case 2 : fileAttente.afficher();continuer();sousmenu=true;break; //[OK]
-					case 3 : Historique();continuer();sousmenu=true;break;
-					case 4 : Secretaire.commencerPause(fileAttente);Secretaire.finirPause(fileAttente);
+					case 3 : Historique();continuer();sousmenu=true;break; //[OK]
+					case 4 : Secretaire.commencerPause(fileAttente);Secretaire.finirPause(fileAttente); //[OK]
 					continuer();sousmenu=true;break;
 					default : sousmenu=true;break;
 					}
@@ -69,11 +67,11 @@ public class MenuTest {
 							+ " : voir fiche du prochain patient\n(5) : sauvegarder la liste des visites");
 					Choix = saisieInt("Choix : ");
 					switch(Choix) {
-					case 0 : sousmenu=false;break;//OK
-					case 1 : if(salleActuelle) {salle1=false;}else{salle2=false;}sousmenu=false;break; //Déconnexion après salle rendue
+					case 0 : sousmenu=false;break; //[OK]
+					case 1 : if(salleActuelle) {salle1=false;}else{salle2=false;}sousmenu=false;break; //[OK]
 					case 2 : Medecin.rendreSalleDisponible(fileAttente, visites, utilisateur.getNumero(), nomSalle);
 						continuer();sousmenu=true;break;
-					case 3 : fileAttente.afficher();continuer();sousmenu=true;break;
+					case 3 : fileAttente.afficher();continuer();sousmenu=true;break; //[OK]
 					case 4 : continuer();sousmenu=true;break;
 					case 5 : Medecin.saveVisites(visites);continuer();sousmenu=true;break; // Medecin.saveVisites(visites);
 					default : sousmenu=true;break;//OK

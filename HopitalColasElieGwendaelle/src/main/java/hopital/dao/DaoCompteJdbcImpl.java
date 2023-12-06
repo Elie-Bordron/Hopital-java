@@ -78,7 +78,7 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 
 	@Override
 	public Compte findByKey(Integer key) {
-		Compte compte = null;
+		Compte compte = new Compte();
 		Connection connection = JdbcContext.getConnection();
 		try {
 			PreparedStatement ps = connection.prepareStatement("select * from compte where id_compte = ?");
@@ -108,10 +108,10 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 			st = JdbcContext.getConnection().createStatement();
 			ResultSet rs = st.executeQuery("select * from compte");
 			while (rs.next()) {
-				if (rs.getString("type_compte") == "medecin") {
+				if (rs.getString("type_compte").equals("medecin")) {
 				comptes.add(new Medecin(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte")));
 				}
-				if (rs.getString("type_compte") == "secretaire") {
+				if (rs.getString("type_compte").equals("secretaire")) {
 					comptes.add(new Secretaire(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte")));
 					}
 			}
