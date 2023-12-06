@@ -18,14 +18,11 @@ public class DaoPatientJdbcImpl implements DaoPatient{
 		Connection connection = JdbcContext.getConnection();
 		PreparedStatement ps = null;
 		try {
-			ps = connection.prepareStatement("insert into patient(nom_patient, prenom_patient) values(?,?)", Statement.RETURN_GENERATED_KEYS);
-			ps.setString(1, obj.getNom());
-			ps.setString(2, obj.getPrenom());
+			ps = connection.prepareStatement("insert into patient(id_patient, nom_patient, prenom_patient) values(?,?,?)");
+			ps.setInt(1, obj.getNumero());
+			ps.setString(2, obj.getNom());
+			ps.setString(3, obj.getPrenom());
 			ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
-			if (rs.next()) {
-				obj.setNumero(rs.getInt(1));
-			}
 			ps.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
