@@ -123,6 +123,32 @@ public class DaoVisiteJdbcImpl implements DaoVisite{
 		JdbcContext.closeConnection();
 		return visite;
 	}
+	
+	public List<Visite> findByPatient(Integer key) {
+		List<Visite> visites = new ArrayList<Visite>();
+		Visite visite = null;
+		Connection connection = JdbcContext.getConnection();
+		try {
+			PreparedStatement ps = connection.prepareStatement("select * from visite v left join patient p on v.id_patient = p.id_patient left join compte c on v.id_medecin = c.id_compte where v.id_patient = ?");
+			ps.setInt(1, key);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				visite = new Visite(rs.getInt("id_visite"), rs.getInt("cout_visite"),rs.getString("salle_visite"), rs.getDate("date_visite") != null ? rs.getDate("date_visite").toLocalDate() : null);
+				if (rs.getInt("id_patient") != 0) {
+					visite.setPatient(new Patient(rs.getInt("id_patient"), rs.getString("nom_patient"), rs.getString("prenom_patient")));
+				}
+				if (rs.getInt("id_medecin") != 0) {
+					visite.setMedecin(new Medecin(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte")));
+				}	
+				
+			visites.add(visite);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		JdbcContext.closeConnection();
+		return visites;
+	}
 
 	@Override
 	public List<Visite> findAll() {

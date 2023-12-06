@@ -1,6 +1,10 @@
 package hopital.model;
 
+import java.util.List;
 import java.util.Objects;
+
+import hopital.dao.DaoVisite;
+import hopital.util.JdbcContext;
 
 public class Patient {
 
@@ -67,5 +71,16 @@ public class Patient {
 	@Override
 	public String toString() {
 		return numero + " " + nom + " " + prenom;
+	}
+	
+	public void getHistoric() {
+		System.out.println("Patient : " + numero + " " + nom + " " + prenom+ "\n");
+		DaoVisite daoVisite = JdbcContext.getDaoVisite();
+		List<Visite> visite = daoVisite.findByPatient(numero);
+		for (Visite v : visite) {
+			System.out.println("Numéro de visite " + v.getNumero() + "\nMedecin : " + v.getMedecin().getNumero() + " - " + 
+		v.getMedecin().getLogin() + ", salle : " + v.getSalle() + ", date : " + v.getDateVisite());
+		}
+		
 	}
 }

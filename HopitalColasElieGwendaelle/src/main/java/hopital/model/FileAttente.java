@@ -21,11 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import hopital.util.JdbcContext;
+
 import hopital.dao.DaoPatient;
-
-
-
+import hopital.util.JdbcContext;
 
 public class FileAttente {
 	List<Patient> patients;
