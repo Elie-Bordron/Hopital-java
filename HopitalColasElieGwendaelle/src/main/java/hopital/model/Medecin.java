@@ -30,7 +30,7 @@ public class Medecin extends Compte {
 			saveVisites();
 			System.out.println("Les visites précédentes ont été sauvegardées");
 		}
-		visites.add(visiteDePatient(fileAttente.sortirProchainPatient(salle)));
+		visites.add(visiteDePatient(fileAttente.sortirProchainPatient()));
 	}
 	
 	public void saveVisites() {

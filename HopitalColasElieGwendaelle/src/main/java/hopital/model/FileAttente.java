@@ -21,6 +21,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import hopital.util.JdbcContext;
+import hopital.dao.DaoPatient;
+
 
 
 
@@ -68,33 +71,22 @@ public class FileAttente {
 	public void afficher() {
 		System.out.println("Voici la file d'attente: ");
 		for (Patient patient : patients) {
-			System.out.print("Le patient ");
 			patient.toString();
-			System.out.println(" a rendez-vous en salle "+patient.getSalle());
 		}
 	}
 	
-	public void afficherProchainPatient(String salle) {
-		System.out.println("Le prochain patient en salle "+salle+" est ");
-		for (Patient patient : patients) {
-			if(patient.getSalle()==salle) {
-				patient.toString();
-				break;
-			}
-		}
+	public void afficherProchainPatient() {
+		patients.get(0).toString();
 	}
 	
-	public Patient getProchainPatient(String salle) {
-		for (Patient patient : patients) {
-			if(patient.getSalle()==salle) {
-				return patient;
-			}
-		}
-		return null;
+	public Patient getProchainPatient() {
+		return patients.get(0);
 	}
 	
-	public Patient sortirProchainPatient(String salle) {
-		patient = getProchainPatient(salle);
+	public Patient sortirProchainPatient() {
+		Patient patient = getProchainPatient();
+		patients.remove(0);
+		return patient;
 		
 	}
 

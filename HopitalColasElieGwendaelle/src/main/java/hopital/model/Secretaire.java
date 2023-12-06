@@ -14,8 +14,7 @@ public class Secretaire extends Compte{
 		super(login, password,"secretaire");
 	}
 
-	public static void ajouterPatient(Patient patient, String salle, FileAttente fileAttente) {
-		patient.setSalle(salle);
+	public static void ajouterPatient(Patient patient, FileAttente fileAttente) {
 		fileAttente.ajouterPatient(patient);
 	}
 	
