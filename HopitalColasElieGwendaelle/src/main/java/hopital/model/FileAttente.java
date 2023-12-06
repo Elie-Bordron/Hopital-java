@@ -1,4 +1,4 @@
-package src.main.java;
+package hopital.model;
 
 import java.util.ArrayList;
 
@@ -14,13 +14,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-
-import hopital.model.Patient;
 
 
 
@@ -50,13 +49,16 @@ public class FileAttente {
 		}
 	}
 	
-	public boolean patientInDb(int numero) {
-		// retourne true si l'id du patient est dans la base de donnees, sinon retourne false
+	public static boolean patientInDb(int numero) {
+		DaoPatient daoPatient = JdbcContext.getDaoPatient();
+		Patient patient = daoPatient.findByKey(numero);
+		if (patient == null) return false;
 		return true;
 	}
+	
 	public void patientToDb(Patient patient) {
-		// enregistre les infos du patient dans la base de donnees
-		
+		DaoPatient daoPatient = JdbcContext.getDaoPatient();
+		daoPatient.insert(patient);
 	}
 	
 	public void afficher() {
@@ -84,7 +86,7 @@ public class FileAttente {
 	///////////// methodes pour l'ecriture de la file d'attente dans un fichier
 	
 	public void saveFileAttente() {
-		writeFileAttenteFromFile();
+		writeFileAttenteToFile();
 	}
 	
 	public String loadFileAttente() {
@@ -107,21 +109,27 @@ public class FileAttente {
 		return "";
 	}
 	
-	public void writeFileAttenteFromFile() {
+	public void writeFileAttenteToFile() {
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
-		try {
-			oos = new ObjectOutputStream(fos);
-			fos = new FileOutputStream("fileAttente.txt");
-			oos.writeObject(patients);
-			fos.close();
-			oos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		if(patients.size()==0) {
+			System.out.println("La file d'attente est vide");
+		} else {
+			try {
+				oos = new ObjectOutputStream(fos);
+				fos = new FileOutputStream("fileAttente.txt");
+				oos.writeObject(patients);
+				fos.close();
+				oos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	private List<Patient> readFileAttenteFromFile() {
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
 		ObjectInputStream ois = null;
 		List<Patient> patients = new ArrayList<>();
 		try {
@@ -129,8 +137,14 @@ public class FileAttente {
 			patients = (List<Patient>) ois.readObject();
 			for (Patient patient : patients) {
 				System.out.println(patient);
-				
 			}
+			// vide le fichier
+			oos = new ObjectOutputStream(fos);
+			fos = new FileOutputStream("fileAttente.txt");
+			oos.writeBytes("");
+			fos.close();
+			oos.close();
+			
 			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();

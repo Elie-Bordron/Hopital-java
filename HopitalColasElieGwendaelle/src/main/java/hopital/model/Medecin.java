@@ -3,8 +3,6 @@ package hopital.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import src.main.java.FileAttente;
-
 public class Medecin extends Compte {
 	
 	private String type;
