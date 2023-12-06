@@ -40,15 +40,11 @@ public class FileAttente {
 		this.patients = patients;
 	}
 
-	public boolean ajouterPatient(Patient patient){
+	public void ajouterPatient(Patient patient){
 		if (patientInDb(patient.getNumero())) {
 			patients.add(patient);
-			return true;
 		} else {
 			System.out.println("Le patient doit etre enregistré dans la base de données");
-			return false;
-//			patientToDb(patient);
-//			patients.add(patient);
 		}
 	}
 		
@@ -60,6 +56,8 @@ public class FileAttente {
 	}
 	
 	public void patientToDb(Patient patient) {
+		patient.setNom(saisieString("Entrez votre Nom: "));
+		patient.setPrenom(saisieString("Entrez votre Prenom: "));
 		DaoPatient daoPatient = JdbcContext.getDaoPatient();
 		daoPatient.insert(patient);
 	}
@@ -156,4 +154,14 @@ public class FileAttente {
 		}
 		return patients;
 	}
+
+	//////////////////////////////////////// Pour faire une Saisie dans ajouterPatient()
+	public static String saisieString(String message){
+		Scanner sc=new Scanner(System.in);
+		System.out.println(message);
+		return sc.nextLine();
+	}
+	
+	
+
 }
