@@ -48,6 +48,10 @@ public class FileAttente {
 			patients.add(patient);
 		}
 	}
+
+	public void retirerPatient(Patient patient) {
+		
+	}
 	
 	public boolean patientInDb(int numero) {
 		// retourne true si l'id du patient est dans la base de donnees, sinon retourne false
@@ -67,17 +71,29 @@ public class FileAttente {
 		}
 	}
 	
-	public Patient prochainPatient(String salle) {
+	public void afficherProchainPatient(String salle) {
 		System.out.println("Le prochain patient en salle "+salle+" est ");
 		for (Patient patient : patients) {
 			if(patient.getSalle()==salle) {
 				patient.toString();
+				break;
+			}
+		}
+	}
+	
+	public Patient getProchainPatient(String salle) {
+		for (Patient patient : patients) {
+			if(patient.getSalle()==salle) {
 				return patient;
 			}
 		}
 		return null;
 	}
 	
+	public Patient sortirProchainPatient(String salle) {
+		patient = getProchainPatient(salle);
+		
+	}
 
 	
 	///////////// methodes pour l'ecriture de la file d'attente dans un fichier

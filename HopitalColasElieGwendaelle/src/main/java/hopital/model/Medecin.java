@@ -25,12 +25,12 @@ public class Medecin extends Compte {
 		return new Visite(patient, this, 20, salle, LocalDate.now());
 	}
 	
-	public void nouvelleVisite(Patient patient) {
+	public void rendreSalleDisponible(FileAttente fileAttente) {
 		if(visites.size()>=10) {
 			saveVisites();
 			System.out.println("Les visites précédentes ont été sauvegardées");
 		}
-		visites.add(visiteDePatient(patient));
+		visites.add(visiteDePatient(fileAttente.sortirProchainPatient(salle)));
 	}
 	
 	public void saveVisites() {
