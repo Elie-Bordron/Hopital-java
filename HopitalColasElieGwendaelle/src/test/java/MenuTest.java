@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,13 +8,10 @@ import hopital.dao.DaoCompteJdbcImpl;
 import hopital.model.Medecin;
 import hopital.model.Patient;
 import hopital.model.Secretaire;
-<<<<<<< HEAD
 import hopital.model.FileAttente;
-=======
 import hopital.model.Visite;
->>>>>>> 10ad6a7e9c54328ac43a40ae3d9f1866729f168c
 import hopital.util.JdbcContext;
-import hopital.model.Compte;
+import hopital.model.Compte; 
 import hopital.model.FileAttente;
 
 public class MenuTest {
@@ -30,6 +28,7 @@ public class MenuTest {
 			int Choix = 0;
 			boolean sousmenu = true;
 			Compte utilisateur = ConnectionCompte();
+			System.out.println(utilisateur.toString());
 			System.out.println("-----------------------");
 			if (utilisateur.getTypeCompte().equals("secretaire")) {
 				while(sousmenu) {
@@ -123,10 +122,10 @@ public class MenuTest {
 	
 	public static void secrAjPatient() {
 	int key = saisieInt("Entrer le numéro du patient : ");
-	String nom = saisieString("Entrer le nom du patient : ");
-	String prenom = saisieString("Entrer le prénom du patient : ");
-	fileAttente.ajouterPatient(new Patient(key, nom, prenom));
-	System.out.println("Patient ajouté.");
+//	String nom = saisieString("Entrer le nom du patient : "); //Pour éviter qu'un nouveau venu ne donne le meme id qu'un patient déjà existant.
+//	String prenom = saisieString("Entrer le prénom du patient : ");
+	fileAttente.ajouterPatient(new Patient(key));
+	System.out.println("Patient ajouté à la file.");
 	}
 	
 	public static void Historique() {

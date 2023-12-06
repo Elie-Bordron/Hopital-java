@@ -41,10 +41,16 @@ public class FileAttente {
 	}
 
 	public void ajouterPatient(Patient patient){
-		if (patientInDb(patient.getNumero())) {
+		if(patients.contains(patient)) {
+			System.out.println("Ce patient est déjà en attente d'un rendez-vous.");
+		} else if (patientInDb(patient.getNumero())) {
+			System.out.println("Le patient est connu dans la base de données");
+			patient = JdbcContext.getDaoPatient().findByKey(patient.getNumero());
 			patients.add(patient);
 		} else {
 			System.out.println("Le patient doit etre enregistré dans la base de données");
+			patientToDb(patient);
+			patients.add(patient);
 		}
 	}
 		
@@ -56,15 +62,24 @@ public class FileAttente {
 	}
 	
 	public void patientToDb(Patient patient) {
-		patient.setNom(saisieString("Entrez votre Nom: "));
-		patient.setPrenom(saisieString("Entrez votre Prenom: "));
+		System.out.println("nom patient: "+patient.getNom());
+		if(patient.getNom()==null) {
+			patient.setNom(saisieString("Entrez votre Nom: "));
+		}
+		System.out.println("prenom patient: "+patient.getPrenom());
+		if(patient.getPrenom()==null) {
+			patient.setPrenom(saisieString("Entrez votre Prenom: "));
+		}
 		DaoPatient daoPatient = JdbcContext.getDaoPatient();
 		daoPatient.insert(patient);
 	}
 	
 	public void afficher() {
-		System.out.println("Voici la file d'attente: ");
-		System.out.println(patients);
+		System.out.println("Il y a "+ patients.size()+" patients dans la file d'attente: ");
+		for(Patient p : patients) {
+			System.out.println(p.toString());
+		}
+//		System.out.println(patients);
 	}
 	
 	public void afficherProchainPatient() {

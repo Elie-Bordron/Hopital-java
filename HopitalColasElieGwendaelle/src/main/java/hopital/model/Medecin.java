@@ -39,7 +39,7 @@ public class Medecin extends Compte {
 	
 	public static Medecin getMedecinByKey(int numero) {
 		DaoCompte daoCompte = JdbcContext.getDaoCompte();
-		Medecin medecin = daoCompte.findByKey(numero);
+		Medecin medecin = (Medecin) daoCompte.findByKey(numero);
 		return medecin;
 	}
 
