@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hopital.model.Compte;
+import hopital.model.Medecin;
+import hopital.model.Secretaire;
 import hopital.util.JdbcContext;
 
 public class DaoCompteJdbcImpl implements DaoCompte {
@@ -83,8 +85,14 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 			ps.setInt(1, key);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				compte = new Compte(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte"), rs.getString("type_compte"));
-				}	
+				if (rs.getString("type_compte") == "medecin") {
+					compte = new Medecin(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte"));
+				}
+				if (rs.getString("type_compte") == "secretaire") {
+					compte = new Secretaire(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte"));
+				}
+			}
+				
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -100,8 +108,12 @@ public class DaoCompteJdbcImpl implements DaoCompte {
 			st = JdbcContext.getConnection().createStatement();
 			ResultSet rs = st.executeQuery("select * from compte");
 			while (rs.next()) {
-				comptes.add(new Compte(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte"),
-						rs.getString("type_compte")));
+				if (rs.getString("type_compte") == "medecin") {
+				comptes.add(new Medecin(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte")));
+				}
+				if (rs.getString("type_compte") == "secretaire") {
+					comptes.add(new Secretaire(rs.getInt("id_compte"), rs.getString("login_compte"), rs.getString("password_compte")));
+					}
 			}
 			st.close();
 		} catch (SQLException e) {
