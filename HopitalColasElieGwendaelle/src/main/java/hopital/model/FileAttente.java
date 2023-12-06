@@ -68,9 +68,7 @@ public class FileAttente {
 	
 	public void afficher() {
 		System.out.println("Voici la file d'attente: ");
-		for (Patient patient : patients) {
-			patient.toString();
-		}
+		System.out.println(patients);
 	}
 	
 	public void afficherProchainPatient() {
