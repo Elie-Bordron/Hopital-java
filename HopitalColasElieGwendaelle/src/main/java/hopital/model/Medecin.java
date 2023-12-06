@@ -33,6 +33,7 @@ public class Medecin extends Compte {
 	
 	public static void saveVisites(List<Visite> visites) {
 		// utilise DAOvisite pour sauvegarder la liste de visites, quelle que soit sa longueur
+		
 		visites.clear();
 	}
 	

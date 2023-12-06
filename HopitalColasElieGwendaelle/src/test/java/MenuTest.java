@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
+
 import hopital.dao.DaoCompteJdbcImpl;
 import hopital.model.Medecin;
 import hopital.model.Patient;
 import hopital.model.Secretaire;
+import hopital.model.FileAttente;
 import hopital.util.JdbcContext;
-import src.main.java.FileAttente;
 import hopital.model.Compte;
 
 public class MenuTest {
@@ -66,7 +67,7 @@ public class MenuTest {
 					switch(Choix) {
 					case 0 : sousmenu=false;break;//OK
 					case 1 : if(salleActuelle) {salle1=false;}else{salle2=false;}sousmenu=false;break; //Déconnexion après salle rendue
-					case 2 : fileAttente.prochainPatient(nomSalle);continuer();sousmenu=true;break;
+					case 2 : fileAttente.getProchainPatient();continuer();sousmenu=true;break;
 					case 3 : fileAttente.afficher();continuer();sousmenu=true;break;
 					case 4 : continuer();sousmenu=true;break;
 					default : sousmenu=true;break;//OK

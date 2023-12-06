@@ -40,21 +40,18 @@ public class FileAttente {
 		this.patients = patients;
 	}
 
-	public void ajouterPatient(Patient patient){
+	public boolean ajouterPatient(Patient patient){
 		if (patientInDb(patient.getNumero())) {
 			patients.add(patient);
+			return true;
 		} else {
-			System.out.println("Enregistrement du patient dans la base de données");
-			patientToDb(patient);
-			patients.add(patient);
+			System.out.println("Le patient doit etre enregistré dans la base de données");
+			return false;
+//			patientToDb(patient);
+//			patients.add(patient);
 		}
 	}
-
-	
-	public void retirerPatient(Patient patient) {
 		
-	}
-	
 	public static boolean patientInDb(int numero) {
 		DaoPatient daoPatient = JdbcContext.getDaoPatient();
 		Patient patient = daoPatient.findByKey(numero);
@@ -131,6 +128,9 @@ public class FileAttente {
 			}
 		}
 	}
+	
+	
+	
 	
 	private List<Patient> readFileAttenteFromFile() {
 		FileOutputStream fos = null;
