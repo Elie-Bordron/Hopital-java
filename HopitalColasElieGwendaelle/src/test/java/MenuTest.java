@@ -7,11 +7,7 @@ import hopital.dao.DaoCompteJdbcImpl;
 import hopital.model.Medecin;
 import hopital.model.Patient;
 import hopital.model.Secretaire;
-<<<<<<< HEAD
-import hopital.model.FileAttente;
-=======
 import hopital.model.Visite;
->>>>>>> 10ad6a7e9c54328ac43a40ae3d9f1866729f168c
 import hopital.util.JdbcContext;
 import hopital.model.Compte;
 import hopital.model.FileAttente;
@@ -73,8 +69,8 @@ public class MenuTest {
 					switch(Choix) {
 					case 0 : sousmenu=false;break; //[OK]
 					case 1 : if(salleActuelle) {salle1=false;}else{salle2=false;}sousmenu=false;break; //[OK]
-//					case 2 : visites = Medecin.rendreSalleDisponible(fileAttente, visites, utilisateur.getNumero(), nomSalle);
-//						continuer();sousmenu=true;break;
+					case 2 : Medecin.rendreSalleDisponible(fileAttente, visites, utilisateur.getNumero(), nomSalle);
+						continuer();sousmenu=true;break;
 					case 3 : fileAttente.afficher();continuer();sousmenu=true;break; //[OK]
 					case 4 : continuer();sousmenu=true;break;
 					case 5 : continuer();sousmenu=true;break; // Medecin.saveVisites(visites);
@@ -117,7 +113,6 @@ public class MenuTest {
 				logmdp = 1;
 			}
 		}
-		//System.out.println(JdbcContext.getDaoCompte().findByKey(cle).getTypeCompte());
 		return JdbcContext.getDaoCompte().findByKey(cle);
 	}
 	
