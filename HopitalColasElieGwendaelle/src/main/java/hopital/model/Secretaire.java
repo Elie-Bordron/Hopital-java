@@ -2,8 +2,6 @@ package hopital.model;
 
 import java.time.LocalDate;
 
-import src.main.java.FileAttente;
-
 public class Secretaire extends Compte{
 
 	public Secretaire () {}
