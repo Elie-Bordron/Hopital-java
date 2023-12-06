@@ -73,11 +73,16 @@ public class Patient {
 		return numero + " " + nom + " " + prenom;
 	}
 	
-	public void getHistoric() {
-		System.out.println("Patient : " + numero + " " + nom + " " + prenom+ "\n");
+	public static void getHistoric(int numero) {
 		DaoVisite daoVisite = JdbcContext.getDaoVisite();
 		List<Visite> visite = daoVisite.findByPatient(numero);
+		
+		boolean first = true;
+		
 		for (Visite v : visite) {
+			if (first) System.out.println("Patient : " + v.getPatient().getNumero() +
+					" " + v.getPatient().getNom() + " " + v.getPatient().getPrenom()+ "\n");
+			first = false;
 			System.out.println("Numéro de visite " + v.getNumero() + "\nMedecin : " + v.getMedecin().getNumero() + " - " + 
 		v.getMedecin().getLogin() + ", salle : " + v.getSalle() + ", date : " + v.getDateVisite());
 		}
