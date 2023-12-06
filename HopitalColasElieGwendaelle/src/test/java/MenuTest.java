@@ -1,12 +1,15 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import hopital.dao.DaoCompteJdbcImpl;
 import hopital.model.Medecin;
 import hopital.model.Patient;
 import hopital.model.Secretaire;
+import hopital.model.Visite;
 import hopital.util.JdbcContext;
-import src.main.java.FileAttente;
 import hopital.model.Compte;
+import hopital.model.FileAttente;
 
 public class MenuTest {
 //	public static String typeC;
@@ -14,7 +17,8 @@ public class MenuTest {
 	private static boolean salle1=false;
 	private static boolean salle2=false;
 	private static String phraseIntro = "Que souhaitez-vous faire ?\nRépondez par le numéro correspondant à l'action désirée.";
-	public static FileAttente fileAttente;
+	public static FileAttente fileAttente = new FileAttente();
+	public static List<Visite> visites = new ArrayList<Visite>();
 	
 	public static void main(String[] args) {
 		while(true) {
@@ -23,7 +27,6 @@ public class MenuTest {
 			Compte utilisateur = ConnectionCompte();
 			System.out.println("-----------------------");
 			if (utilisateur.getTypeCompte().equals("secretaire")) {
-//				Secretaire secretaire = new Secretaire();
 				while(sousmenu) {
 					System.out.println(phraseIntro
 							+ "\n(0) : se déconnecter\n(1) : ajouter patient à la file d'attente\n(2) : "
@@ -31,18 +34,17 @@ public class MenuTest {
 							+ " : historique d'un patient\n(4) : prendre une pause");
 					Choix = saisieInt("Choix : ");
 					switch(Choix) {
-					case 0 : sousmenu=false;break;//OK
-					case 1 : secrAjPatient();continuer();sousmenu=true;break;
-					case 2 : fileAttente.afficher();continuer();sousmenu=true;break;
-					case 3 : continuer();sousmenu=true;break;
+					case 0 : sousmenu=false;break; //[OK]
+					case 1 : secrAjPatient();continuer();sousmenu=true;break; //[OK] SAUF que il faut verifier le n° et NOM et PRENOM ET il faut ajouter le patient avec son numéro sécu et pas implémenter un numéro incrémenté
+					case 2 : fileAttente.afficher();continuer();sousmenu=true;break; //[OK]
+					case 3 : Historique();continuer();sousmenu=true;break;
 					case 4 : Secretaire.commencerPause(fileAttente);Secretaire.finirPause(fileAttente);
 					continuer();sousmenu=true;break;
-					default : sousmenu=true;break;//OK
+					default : sousmenu=true;break;
 					}
 				}
 			}else if (utilisateur.getTypeCompte().equals("medecin")) {
-//				Medecin medecin = new Medecin();
-				boolean salleActuelle = false; //salle 1=true, salle 2=false
+				boolean salleActuelle = false;
 				String nomSalle = new String();
 				if (salle1==false && salle2==false) {
 					while ((Choix!=1) && (Choix!=2)) {
@@ -59,24 +61,24 @@ public class MenuTest {
 					salle1=true; salleActuelle = true; nomSalle = "Salle 1";
 				}
 				while(sousmenu) {
-					System.out.println(phraseIntro+"\n(0) : se déconnecter\n(1) : rendre salle disponible\n(2) : "
-							+ "voir état file d'attente\n(3)"
-							+ " : voir fiche du prochain patient\n(4) : sauvegarder la liste des visites");
+					System.out.println(phraseIntro+"\n(0) : se déconnecter\n(1) : quitter salle\n(2) : rendre salle disponible\n(3) : "
+							+ "voir état file d'attente\n(4)"
+							+ " : voir fiche du prochain patient\n(5) : sauvegarder la liste des visites");
 					Choix = saisieInt("Choix : ");
 					switch(Choix) {
 					case 0 : sousmenu=false;break;//OK
 					case 1 : if(salleActuelle) {salle1=false;}else{salle2=false;}sousmenu=false;break; //Déconnexion après salle rendue
-					case 2 : fileAttente.prochainPatient(nomSalle);continuer();sousmenu=true;break;
+					case 2 : Medecin.rendreSalleDisponible(fileAttente, visites, utilisateur.getNumero(), nomSalle);
+						continuer();sousmenu=true;break;
 					case 3 : fileAttente.afficher();continuer();sousmenu=true;break;
 					case 4 : continuer();sousmenu=true;break;
+					case 5 : continuer();sousmenu=true;break; // Medecin.saveVisites(visites);
 					default : sousmenu=true;break;//OK
 					}
 				}
 			}
 		}
 	}
-
-	
 	
 	public static int saisieInt(String message)
 	{
@@ -120,6 +122,11 @@ public class MenuTest {
 	String prenom = saisieString("Entrer le prénom du patient : ");
 	fileAttente.ajouterPatient(new Patient(key, nom, prenom));
 	System.out.println("Patient ajouté.");
+	}
+	
+	public static void Historique() {
+		int key = saisieInt("Entrer le numéro du patient : ");
+//		Patient.getHistoric(key);
 	}
 	
 }
